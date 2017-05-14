@@ -1,2 +1,6 @@
 - Check for no available moves (done I think?)
 - Fix so all variations of shapes can appear (done I think?)
+
+Issue:
+- Game tests for availableMoves before it checks for lines to remove (?), should be the other way around so cleared space is taken into account.
+- Game over message appears while option is still highlighted.
