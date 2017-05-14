@@ -473,7 +473,8 @@ $(function() {
 		drawGrid();
 	});
 	
-	$('.grid-sq').on({
+	/*
+    $('.grid-sq').on({
 		mouseenter: function(){
 			var thisImage = $(this).find('img').attr('src');
 			var thisContent = $(this).find('.grid-sq-content').children().clone();
@@ -486,6 +487,7 @@ $(function() {
 			$('.grid-highlight').css({'display':'none'});
 		}
 	});	
+    */
 	
 	$('.pieces').on('click', '> div', function(){
 		game.currentShape = $(this).data('pieceid');
@@ -511,7 +513,7 @@ $(function() {
 	game.currentShape = game.currentShapes[0];
 	$('.pieces div:first-child').addClass('selected');
 	drawGrid();
-    checkForRows();
+    // checkForRows();
     updateLevel();
 	console.log('Current shapes: ' + game.currentShapes);
 });
