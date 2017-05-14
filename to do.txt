@@ -1,0 +1,2 @@
+- Check for no available moves (done I think?)
+- Fix so all variations of shapes can appear (done I think?)

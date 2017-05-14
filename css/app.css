@@ -1,0 +1,51 @@
+.sq {
+	width: 36px;
+	height: 36px;
+	float: left;
+	background-color: #ccc;
+	border-radius:3px;
+	margin-right:1px;
+	margin-bottom:1px;
+}
+
+.sq2 {
+	width: 18px;
+	height: 18px;
+	float: left;
+	background-color: #ccc;
+	border-radius:3px;
+	margin-right:1px;
+	margin-bottom:1px;
+}
+
+.grid-wrapper {
+	width:400px;
+}
+
+.pieces > div {
+	box-sizing:border-box;
+	width:117px;
+	height:117px;
+	margin-bottom:0px;
+	margin-top:5px;	
+	border:1px solid #fff;
+	padding:10px;
+}
+
+.pieces > div.selected {
+	/* border: 1px solid #e43989 !important; */
+	border: 1px solid #0b9cda !important; 
+	background-color: #ddd;	
+	margin-bottom:0px !important;	
+	margin-top:5px !important;	
+	padding:10px !important;	
+}
+
+.score-wrapper {
+	font-family: 'Droid Sans', sans-serif;
+	font-size:20px;
+	font-weight:bold;
+	text-align:center;
+	color:#666;
+	padding:20px;
+}
