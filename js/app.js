@@ -186,22 +186,28 @@ var game = {
 	levelCounter: 0,
 	canDropGlobal: true,
 	pieceWidth: 36,
-	pieceMargin: 1
+	pieceMargin: 1,
+	fadeCounter: 0,
+	timer: 0
 };
 
 // Empties and redraws main game grid
 function drawGrid(){
 	$('.grid-wrapper').empty();
+    var newGrid = '';
 	for (var i = 1; i <= 10; i++) {
+        newGrid = newGrid + '<div class+"grid-row">';
 		for (var j = 1; j <= 10; j++){
 			if (data[i][j] === 0) {
-				$('.grid-wrapper').append('<div class="sq" data-x="' + j + '" data-y="' + i + '" style="width:' + game.pieceWidth + 'px; top: ' + ((i - 1) * (game.pieceWidth + game.pieceMargin)) + 'px; left: ' + ((j - 1) * (game.pieceWidth + game.pieceMargin)) + 'px;"></div>');
+                newGrid = newGrid + '<div class="sq" data-x="' + j + '" data-y="' + i + '" style="width:' + game.pieceWidth + 'px; top: ' + ((i - 1) * (game.pieceWidth + game.pieceMargin)) + 'px; left: ' + ((j - 1) * (game.pieceWidth + game.pieceMargin)) + 'px;"></div>';
 			}
 			if (data[i][j] > 0) {
-				$('.grid-wrapper').append('<div class="sq" data-x="' + j + '" data-y="' + i + '" style="background-color:' + shapes[data[i][j] -1].color + '; width:' + game.pieceWidth + 'px; top: ' + ((i - 1) * (game.pieceWidth + game.pieceMargin)) + 'px; left: ' + ((j - 1) * (game.pieceWidth + game.pieceMargin)) + 'px;"></div>');
+                newGrid = newGrid + '<div class="sq" data-x="' + j + '" data-y="' + i + '" style="background-color:' + shapes[data[i][j] -1].color + '; width:' + game.pieceWidth + 'px; top: ' + ((i - 1) * (game.pieceWidth + game.pieceMargin)) + 'px; left: ' + ((j - 1) * (game.pieceWidth + game.pieceMargin)) + 'px;"></div>';
 			}
 		}
+        newGrid = newGrid + '</div>';
 	}
+    $('.grid-wrapper').append(newGrid);
 }
 
 function drawOptions(){
@@ -252,7 +258,7 @@ function drawOptions(){
 	}
 	
 	// NEED TO CHECK FOR NO AVAILABLE MOVES HERE
-	checkForNoMoreMoves()
+	checkForNoMoreMoves();
 	
 }
 
@@ -440,7 +446,7 @@ function checkForRows(){
         }
     }
     if (completeRows.length > 0){
-        console.log('complete rows: ' + completeRows.length)
+        console.log('complete rows: ' + completeRows.length);
         for (var i = 0; i < completeRows.length; i++) {
             for (var x = 1; x < 11; x++){
                 data[completeRows[i]][x] = 0;
@@ -476,9 +482,22 @@ function checkForNoMoreMoves(){
 	}
  	// At end of cycle, if movesAvailable is still false, then GAME OVER! Else, keep going.
 	console.log('Moves available: ' + movesAvailable);
-	if (movesAvailable == false) { 
+	if (movesAvailable === false) { 
 		$('.game-over').show();
-	};
+	}
+}
+
+function fadeInGrid(){
+    $('.grid-wrapper div.sq').eq(game.fadeCounter).animate({
+		'opacity': 1
+	});
+	// $('.output div.sq').eq(rowCounter).slideDown();
+	game.fadeCounter++;
+	if (game.fadeCounter === 100){
+		console.log('End');
+		window.clearInterval(game.timer);
+		game.fadeCounter = 0;
+	}
 }
 
 $(function() {
@@ -499,10 +518,11 @@ $(function() {
 	});
 	*/
 	
+	
 	$('.grid-wrapper').on('mouseover', '.sq', function(){
 		var thisX = $(this).data('x');
 		var thisY = $(this).data('y');
-		if (game.currentShape != null) {
+		if (game.currentShape !== null) {
 			if (canDropTest(thisX, thisY, game.currentShape, shapes[game.currentShape].currentVariation)) {
 				// console.log('Can drop!');			
 				game.canDropGlobal = true;
@@ -553,6 +573,10 @@ $(function() {
 	game.currentShape = game.currentShapes[0];
 	$('.pieces div:first-child').addClass('selected');
 	drawGrid();
+	// Hide squares ahead of fadeing them in
+	$('div.sq').css('opacity', '0');
+	// Fade squares in
+	game.timer = window.setInterval(fadeInGrid, 10);
     checkForRows();
     updateLevel();
 	console.log('Current shapes: ' + game.currentShapes);
