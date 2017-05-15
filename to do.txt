@@ -4,3 +4,14 @@
 Issue:
 - Game tests for availableMoves before it checks for lines to remove (?), should be the other way around so cleared space is taken into account.
 - Game over message appears while option is still highlighted.
+
+
+Game flow:
+
+Init:-
+  GetStartingOptions() // generate random three options
+  drawOptions() // Draw three options on right
+  set the current shape to be the first of the three options
+  DrawGrid() // Draw the game grid (currently empty)
+  updateLeve() // Basically draw Score:0 Level: 0 
+
