@@ -6,6 +6,7 @@
 	border-radius:3px;
 	margin-right:1px;
 	margin-bottom:1px;
+	position:absolute;
 }
 
 .sq2 {
@@ -18,8 +19,25 @@
 	margin-bottom:1px;
 }
 
+.game-wrapper {
+	width: 560px;
+	margin: auto;
+	/* border: 1px solid #e5e5e5; */
+	display: table;
+}
+
 .grid-wrapper {
 	width:400px;
+	float:left;
+	display: table-cell;
+	padding:0px 0px 20px 20px;	
+	position: relative;
+}
+
+.pieces {
+	float:right;	
+	display: table-cell;
+	padding:0px 20px 20px 0px;	
 }
 
 .pieces > div {
@@ -48,4 +66,15 @@
 	text-align:center;
 	color:#666;
 	padding:20px;
+}
+
+.game-over {
+	font-family: 'Droid Sans', sans-serif;
+	display:none;	
+	clear:both;
+	font-size:20px;
+	font-weight:bold;
+	text-align:center;
+	color:#666;
+	padding-bottom:20px;
 }

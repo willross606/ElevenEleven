@@ -1,7 +1,6 @@
-/* Adding to Github */
-
 "use strict";
 
+/*
 var data = [
 	[1,1,1,1,1,1,1,1,1,1,1,1],
 	[1,0,0,0,0,0,0,0,0,0,0,1],
@@ -13,6 +12,38 @@ var data = [
 	[1,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+
+var data = [
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1]
+];
+*/
+
+var data = [
+	[1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
+	[1,0,1,1,1,1,1,1,1,1,0,1],
 	[1,0,0,0,0,0,0,0,0,0,0,1],
 	[1,1,1,1,1,1,1,1,1,1,1,1]
 ];
@@ -67,7 +98,13 @@ var shapes = [
 		currentVariation: 0,
 		variations: [
 			[[ 0, 0],[-1, 0],[+1, 0]],
-			[[ 0, 0],[ 0, +1],[ 0,-1]]
+			[[ 0, 0],[ 0, +1],[ 0,-1]],
+			[[ 0, 0],[-1, 0],[+1, 0]],
+			[[ 0, 0],[ 0, +1],[ 0,-1]],
+			[[ 0, 0],[-1, 0],[+1, 0]],
+			[[ 0, 0],[ 0, +1],[ 0,-1]],
+			[[ 0, 0],[-1, 0],[+1, 0]],
+			[[ 0, 0],[ 0, +1],[ 0,-1]] 
 		]
 	},
 	{
@@ -147,8 +184,25 @@ var game = {
 	currentShapes: [0,1,2],
 	level: 1,
 	levelCounter: 0,
-	canDropGlobal: true
+	canDropGlobal: true,
+	pieceWidth: 36,
+	pieceMargin: 1
 };
+
+// Empties and redraws main game grid
+function drawGrid(){
+	$('.grid-wrapper').empty();
+	for (var i = 1; i <= 10; i++) {
+		for (var j = 1; j <= 10; j++){
+			if (data[i][j] === 0) {
+				$('.grid-wrapper').append('<div class="sq" data-x="' + j + '" data-y="' + i + '" style="width:' + game.pieceWidth + 'px; top: ' + ((i - 1) * (game.pieceWidth + game.pieceMargin)) + 'px; left: ' + ((j - 1) * (game.pieceWidth + game.pieceMargin)) + 'px;"></div>');
+			}
+			if (data[i][j] > 0) {
+				$('.grid-wrapper').append('<div class="sq" data-x="' + j + '" data-y="' + i + '" style="background-color:' + shapes[data[i][j] -1].color + '; width:' + game.pieceWidth + 'px; top: ' + ((i - 1) * (game.pieceWidth + game.pieceMargin)) + 'px; left: ' + ((j - 1) * (game.pieceWidth + game.pieceMargin)) + 'px;"></div>');
+			}
+		}
+	}
+}
 
 function drawOptions(){
 	// Empty shape options ahead of redraw
@@ -216,21 +270,6 @@ function updateLevel(){
     }
     $('.level').empty().append(game.level);
 	console.log('LevelCounter: ' + game.levelCounter);
-}
-
-// Empties and redraws main game grid
-function drawGrid(){
-	$('.grid-wrapper').empty();
-	for (var i = 1; i <= 10; i++) {
-		for (var j = 1; j <= 10; j++){
-			if (data[i][j] === 0) {
-				$('.grid-wrapper').append('<div class="sq" data-x="' + j + '" data-y="' + i + '"></div>');
-			}
-			if (data[i][j] > 0) {
-				$('.grid-wrapper').append('<div class="sq" data-x="' + j + '" data-y="' + i + '" style="background-color:' + shapes[data[i][j] -1].color + '"></div>');
-			}
-		}
-	}
 }
 
 function drawShape(thisX, thisY){
@@ -413,6 +452,7 @@ function checkForRows(){
 }
 
 function getStartingOptions(){
+	// Pick three random (but different) shapes to be the starting options
 	game.currentShapes[0] = getUniqueRandom();
 	game.currentShapes[1] = getUniqueRandom();
 	game.currentShapes[2] = getUniqueRandom();
@@ -436,7 +476,9 @@ function checkForNoMoreMoves(){
 	}
  	// At end of cycle, if movesAvailable is still false, then GAME OVER! Else, keep going.
 	console.log('Moves available: ' + movesAvailable);
-	if (movesAvailable == false) { alert('Game over'); };
+	if (movesAvailable == false) { 
+		$('.game-over').show();
+	};
 }
 
 $(function() {
@@ -473,8 +515,7 @@ $(function() {
 		drawGrid();
 	});
 	
-	/*
-    $('.grid-sq').on({
+	$('.grid-sq').on({
 		mouseenter: function(){
 			var thisImage = $(this).find('img').attr('src');
 			var thisContent = $(this).find('.grid-sq-content').children().clone();
@@ -487,7 +528,6 @@ $(function() {
 			$('.grid-highlight').css({'display':'none'});
 		}
 	});	
-    */
 	
 	$('.pieces').on('click', '> div', function(){
 		game.currentShape = $(this).data('pieceid');
@@ -513,7 +553,7 @@ $(function() {
 	game.currentShape = game.currentShapes[0];
 	$('.pieces div:first-child').addClass('selected');
 	drawGrid();
-    // checkForRows();
+    checkForRows();
     updateLevel();
 	console.log('Current shapes: ' + game.currentShapes);
 });
