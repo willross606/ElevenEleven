@@ -5,22 +5,26 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eleven Eleven</title>
-    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/xfoundation.css">
     <link rel="stylesheet" href="css/app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/core.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
   </head>
   <body>
-  
-	<div class="row">
-    	<div class="large-4 large-offset-3 medium-4 columns">
-        	<div class="score-wrapper">Score: <span class="score">0</span>   Level: <span class="level">1</span></div>
+      <div class="game-wrapper">
+        <div class="row">
+            <div class="large-4 large-offset-3 medium-4 columns header">
+                <div class="score-wrapper">Score: <span class="score">0</span>   Level: <span class="level">1</span></div>
+            </div>
         </div>
-    </div>
-	<div class="row">
-      <div class="large-4 large-offset-3 medium-4  columns grid-wrapper"></div>
-      <div class="large-5 medium-6 columns pieces"></div>
-	</div>
+        <div class="row">
+          <div class="large-4 large-offset-3 medium-4 columns grid-wrapper"></div>
+          <div class="large-5 medium-6 columns pieces"></div>
+        </div>
+        <div class="row">
+            <div class="game-over">GAME OVER</div>
+        </div>
+      </div>
 
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
